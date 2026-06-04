@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       PAGE TITLE
+       Change the text between <title> tags to update the browser
+       tab label and bookmark name.
+  ============================================================ -->
+  <title>Senior Citizens Hub – Dashboard</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap');
+
+    /* ============================================================
+       CSS VARIABLES — COLOR THEME
+       These are the same green variables used across all pages.
+       Change a value here to update every element that uses it.
+
+         --color-sage        : Sage green → used on NAV BAR and FOOTER
+         --color-sage-dark   : Darker sage → hover states on nav/footer
+         --color-forest      : Deep forest green → header bg, CTA button,
+                               sidebar active state, card icons
+         --color-forest-light: Lighter forest → button hover background
+         --color-eucalyptus  : Soft eucalyptus → card icon backgrounds
+         --color-text-dark   : Main heading/label text
+         --color-text-mid    : Paragraph / secondary text
+         --color-text-light  : White text (used on dark backgrounds)
+         --color-bg-light    : Page and main content background
+         --color-bg-sidebar  : Sidebar background (slightly off-white)
+         --color-border      : Borders, dividers, card outlines
+    ============================================================ */
+    :root {
+      --color-sage:          #87a878;
+      --color-sage-dark:     #6b8f5e;
+      --color-forest:        #2d4a2d;
+      --color-forest-light:  #3d6b3d;
+      --color-eucalyptus:    #c8d9c0;
+      --color-text-dark:     #1a2e1a;
+      --color-text-mid:      #4a5e40;
+      --color-text-light:    #ffffff;
+      --color-bg-light:      #f7f9f5;
+      --color-bg-sidebar:    #eef2eb;
+      --color-border:        #c5d4bc;
+
+      --font-heading: 'Merriweather', Georgia, serif;
+      --font-body:    'Lato', Arial, Helvetica, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-text-dark);
+      background-color: var(--color-bg-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+
+    /* ============================================================
+       HEADER
+       Contains: logo (left), search bar (center), CTA + icons (right).
+
+       HOW TO EDIT:
+         - Background color: change --color-forest in :root above.
+         - Logo circle: replace <div class="logo-circle"> with
+           <img src="logo.png" alt="Logo" width="40" height="40">
+         - Site name: edit the text inside <span class="logo-text">
+         - CTA button text: edit "Click to call or chat" in the HTML
+         - CTA button link: change href="#" on .btn-cta to your URL
+         - Search placeholder: change placeholder="Search services..."
+    ============================================================ */
+    header {
+      /* ← Change background-color here to update the header strip */
+      background-color: var(--color-forest);
+      border-bottom: 2px solid var(--color-sage);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* ── Logo ── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    /* Gray circle — replace with <img src="logo.png"> when ready */
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      /* ← Change background-color to update the logo circle color */
+      background-color: var(--color-sage);
+      flex-shrink: 0;
+    }
+
+    /* ← Change font-size or color to restyle the site name */
+    .logo-text {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text-light);
+    }
+
+    /* ── Search Bar ── */
+    /* HOW TO EDIT: Change max-width to widen/narrow the search bar */
+    .search-bar {
+      flex: 1;
+      max-width: 460px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 7px 16px;
+    }
+
+    .search-icon {
+      /* ← Change color to update the magnifier icon color */
+      color: var(--color-sage-dark);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      width: 100%;
+      color: var(--color-text-dark);
+      background: transparent;
+    }
+
+    /* ── Header Right: CTA button + icon buttons ── */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    /* CTA button
+       HOW TO EDIT: Change background-color on .btn-cta to restyle */
+    .btn-cta {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      /* ← Update these two to change the CTA button color */
+      background-color: var(--color-sage);
+      color: var(--color-text-light);
+      border: 2px solid var(--color-sage);
+      transition: background-color 0.2s ease;
+    }
+    .btn-cta:hover {
+      background-color: var(--color-sage-dark);
+      border-color: var(--color-sage-dark);
+    }
+
+    /* Notification bell and user avatar icon buttons
+       HOW TO EDIT: Change width/height to resize; background-color
+       to change the circle fill color */
+    .icon-btn {
+      position: relative;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--color-eucalyptus);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--color-forest);
+      flex-shrink: 0;
+    }
+
+    /* Red notification dot on the bell icon
+       HOW TO EDIT: Set display:none to hide the dot */
+    .notif-dot {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      /* ← Change background-color to update the dot color */
+      background-color: #e05c3a;
+      border: 1.5px solid var(--color-forest);
+    }
+
+
+    /* ============================================================
+       NAV BAR  ←  SAGE GREEN
+       The horizontal tab bar beneath the header.
+
+       HOW TO EDIT:
+         - Background: change --color-sage in :root
+         - Add a tab: copy one <li><a> block and change href + text
+         - Remove a tab: delete the <li> block
+         - Active tab: add class="active" to the matching <a>
+    ============================================================ */
+    nav {
+      /* ← Sage green applied here — change --color-sage in :root */
+      background-color: var(--color-sage);
+      border-bottom: 2px solid var(--color-sage-dark);
+      padding: 0 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 4px;
+    }
+
+    nav a {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      /* ← Change color to update inactive nav link color */
+      color: var(--color-text-light);
+      text-decoration: none;
+      padding: 11px 16px;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    nav a:hover { color: var(--color-forest); }
+
+    /* Active tab underline
+       HOW TO EDIT: Change border-bottom-color to change underline color */
+    nav a.active {
+      font-weight: 700;
+      color: var(--color-forest);
+      border-bottom: 3px solid var(--color-forest);
+    }
+
+
+    /* ============================================================
+       BODY LAYOUT
+       Two-column grid: sidebar (fixed width) + main content area.
+
+       HOW TO EDIT:
+         - Sidebar width: change 200px in grid-template-columns
+         - Gap between sidebar and content: change the gap value
+    ============================================================ */
+    .body-layout {
+      display: grid;
+      /* ← Change 200px to widen or narrow the sidebar */
+      grid-template-columns: 200px 1fr;
+      flex: 1;
+    }
+
+
+    /* ============================================================
+       LEFT SIDEBAR
+       Contains navigation links + Help & Support + Logout at the bottom.
+
+       HOW TO EDIT:
+         - Background: change --color-bg-sidebar in :root
+         - Add a link: copy a <a class="sidebar-item"> block and
+           update href and label text
+         - Remove a link: delete the <a> block
+         - Active item: add class="active" to the matching <a>
+         - Sidebar width: change grid-template-columns in .body-layout
+    ============================================================ */
+    .sidebar {
+      /* ← Change background-color to update the sidebar strip color */
+      background-color: var(--color-bg-sidebar);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      text-decoration: none;
+      /* ← Change color to update default sidebar link text color */
+      color: var(--color-text-dark);
+      font-size: 0.875rem;
+      border-left: 3px solid transparent;
+      transition: background-color 0.15s;
+    }
+
+    .sidebar-item:hover {
+      /* ← Change background-color to update sidebar hover color */
+      background-color: var(--color-eucalyptus);
+    }
+
+    /* Active sidebar item highlight
+       HOW TO EDIT: Change border-left-color or background-color */
+    .sidebar-item.active {
+      font-weight: 700;
+      border-left-color: var(--color-forest);
+      background-color: var(--color-eucalyptus);
+      color: var(--color-forest);
+    }
+
+    /* Small square icon placeholder inside sidebar items
+       HOW TO EDIT: Replace <div class="sidebar-icon"> with an
+       <img> or inline SVG for real icons */
+    .sidebar-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      /* ← Change background-color to update the icon box color */
+      background-color: var(--color-border);
+      border: 1px solid var(--color-sage);
+      flex-shrink: 0;
+    }
+
+    /* Divider line above Help & Logout
+       HOW TO EDIT: Change border-color to update the line color */
+    .sidebar-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 10px 14px;
+    }
+
+    /* Pushes Help & Logout to the bottom of the sidebar */
+    .sidebar-spacer { flex: 1; }
+
+
+    /* ============================================================
+       MAIN CONTENT AREA
+       Holds the page heading, service card grid, and welcome bar.
+
+       HOW TO EDIT:
+         - Background: change background-color on .main
+         - Inner padding: change the padding value on .main
+         - Gap between sections: change the gap value on .main
+    ============================================================ */
+    .main {
+      /* ← Change background-color to update the main panel color */
+      background-color: var(--color-bg-light);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Page heading "Online Services Dashboard"
+       HOW TO EDIT: Change the text in the HTML <h1> tag */
+    .main h1 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      /* ← Change color to update the heading text color */
+      color: var(--color-text-dark);
+    }
+
+
+    /* ============================================================
+       SERVICE CARDS GRID
+       3-column grid of clickable service tiles.
+
+       HOW TO EDIT:
+         - Columns: change repeat(3, 1fr) e.g. repeat(2, 1fr) for 2 cols
+         - Gap between cards: change the gap value
+         - Card border radius: change border-radius on .service-card
+         - To add a card: copy a <a class="service-card"> block,
+           update href and the label text
+         - To remove a card: delete the <a> block
+    ============================================================ */
+    .cards-grid {
+      display: grid;
+      /* ← Change repeat(3, 1fr) to change number of columns */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Individual service card
+       HOW TO EDIT:
+         - Border color: change border value
+         - Background: change background-color
+         - Hover color: change .service-card:hover background-color */
+    .service-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 18px;
+      background-color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      text-decoration: none;
+      /* ← Change color to update card label text color */
+      color: var(--color-text-dark);
+      transition: background-color 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      /* ← Change background-color to update the card hover fill */
+      background-color: var(--color-eucalyptus);
+      border-color: var(--color-sage);
+    }
+
+    /* Square icon placeholder inside each service card
+       HOW TO EDIT: Replace <div class="card-icon"> with an <img>
+       or inline SVG for real icons. Change width/height to resize. */
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 6px;
+      /* ← Change background-color to update icon box fill */
+      background-color: var(--color-eucalyptus);
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    /* Card label text
+       HOW TO EDIT: Change font-size to make labels larger/smaller */
+    .card-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+
+    /* ============================================================
+       WELCOME / LAST LOGIN BAR
+       The strip at the bottom of the main content area.
+
+       HOW TO EDIT:
+         - Welcome name: change "John Smith" in the HTML
+         - Last login text: update the date/time string in the HTML
+         - Background: change background-color on .welcome-bar
+         - Border: change border value on .welcome-bar
+    ============================================================ */
+    .welcome-bar {
+      /* ← Change background-color to update the welcome strip color */
+      background-color: var(--color-text-light);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      /* ← Change color to update the welcome bar text color */
+      color: var(--color-text-mid);
+    }
+
+    /* Bold name and date inside the welcome bar */
+    .welcome-bar strong { color: var(--color-text-dark); }
+
+
+    /* ============================================================
+       FOOTER  ←  SAGE GREEN
+       Bottom strip with Terms, Privacy, and Help links.
+
+       HOW TO EDIT:
+         - Background: change --color-sage in :root to update both
+           nav and footer at once
+         - Add a link: copy an <a> and <span class="footer-sep">
+           and change the href and text
+         - Remove a link: delete the <a> and its adjacent <span>
+    ============================================================ */
+    footer {
+      /* ← Sage green applied here — change --color-sage in :root */
+      background-color: var(--color-sage);
+      border-top: 2px solid var(--color-sage-dark);
+      padding: 16px 24px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      font-size: 0.83rem;
+      /* ← Change color to update footer link text color */
+      color: var(--color-text-light);
+      text-decoration: none;
+      padding: 0 8px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: var(--color-forest);
+    }
+
+    /* Pipe separator between footer links
+       HOW TO EDIT: Change color to update the pipe color */
+    .footer-sep {
+      color: var(--color-text-light);
+      opacity: 0.6;
+      font-size: 0.83rem;
+      user-select: none;
+    }
+
+
+    /* ============================================================
+       FLOATING HELP BUTTON
+       The "?" button fixed to the bottom-right corner.
+
+       HOW TO EDIT:
+         - Change bottom/right values to reposition it
+         - Change background-color to update its fill
+         - Change the label text ("?") to a different symbol or icon
+         - To hide it: add display:none
+    ============================================================ */
+    .help-fab {
+      position: fixed;
+      /* ← Change bottom/right to reposition the button */
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      /* ← Change background-color to update the button color */
+      background-color: var(--color-forest);
+      color: var(--color-text-light);
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: 2px solid var(--color-sage);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.2s;
+    }
+
+    .help-fab:hover { background-color: var(--color-forest-light); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+       HOW TO EDIT:
+         - Site name: change "Senior Citizens Hub" in .logo-text
+         - Logo circle: replace <div class="logo-circle"> with
+           <img src="logo.png" alt="Logo" width="40" height="40">
+         - CTA button text/link: edit "Click to call or chat" and href
+         - Search placeholder: change placeholder="Search services..."
+  ============================================================ -->
+  <header>
+
+    <!-- Logo: circle + site name -->
+    <a href="index.html" class="logo">
+      <!-- REPLACE: swap this div for a real logo image when ready -->
+      <div class="logo-circle"></div>
+      <!-- ← Change this text to update the site name in the header -->
+      <span class="logo-text">Senior Citizens Hub</span>
+    </a>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+      <span class="search-icon">&#128269;</span>
+      <!-- ← Change placeholder text to update the search hint -->
+      <input type="text" placeholder="Search services..." aria-label="Search services" />
+    </div>
+
+    <!-- Right: CTA button + icon buttons -->
+    <div class="header-right">
+
+      <!-- CTA button — change href to your phone/chat link -->
+      <a href="#" class="btn-cta">Click to call or chat</a>
+
+      <!-- Bell / notifications icon
+           HOW TO EDIT: Remove <span class="notif-dot"> to hide the red dot -->
+      <div class="icon-btn" title="Notifications" role="button" aria-label="Notifications">
+        &#128276;
+        <!-- ← Delete this span to remove the red notification dot -->
+        <span class="notif-dot"></span>
+      </div>
+
+      <!-- User / account icon
+           HOW TO EDIT: Replace &#128100; with an <img> for a real avatar -->
+      <div class="icon-btn" title="My Account" role="button" aria-label="My Account">
+        &#128100;
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ============================================================
+       NAV BAR
+       HOW TO EDIT:
+         - Add a tab: copy a <li><a> and change href + text
+         - Remove a tab: delete the <li> block
+         - Change active tab: move class="active" to the right <a>
+  ============================================================ -->
+  <nav aria-label="Main navigation">
+    <ul>
+      <!-- ← Add class="active" to the tab matching the current page -->
+      <li><a href="mainpage.html" class="active">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <!-- ADD MORE TABS: <li><a href="page.html">Tab Name</a></li> -->
+    </ul>
+  </nav>
+
+
+  <!-- ============================================================
+       BODY: SIDEBAR + MAIN CONTENT
+  ============================================================ -->
+  <div class="body-layout">
+
+    <!-- ══════════════════════════════════════════════
+         LEFT SIDEBAR
+         HOW TO EDIT:
+           - Add a link: copy a <a class="sidebar-item"> block
+             and update the href and label text
+           - Remove a link: delete the <a> block
+           - Change active item: move class="active" to the right <a>
+           - Icon placeholders: replace <div class="sidebar-icon">
+             with an SVG or <img> for real icons
+    ══════════════════════════════════════════════ -->
+    <aside class="sidebar">
+
+      
+      <a href="guide.html" class="sidebar-item active">
+        <div class="sidebar-icon"></div>
+        Guide Mode
+      </a>
+
+      <a href="alert.html" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Scam Alert
+      </a>
+
+      <a href="" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Members
+      </a>
+
+      <a href="" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Partners
+      </a>
+
+      <a href="" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Downloads
+      </a>
+
+      <a href="" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Transparency
+      </a>
+
+
+      <!-- Spacer pushes Help & Logout to the bottom -->
+      <div class="sidebar-spacer"></div>
+      <hr class="sidebar-divider" />
+
+      <a href="#" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Help &amp; Support
+      </a>
+
+      <!-- ← Change href to your logout/sign-out route -->
+      <a href="index.html" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Logout
+      </a>
+
+    </aside>
+
+
+    <!-- ══════════════════════════════════════════════
+         MAIN CONTENT AREA
+         HOW TO EDIT:
+           - Page title: change "Online Services Dashboard" in the <h1>
+           - Add a card: copy a <a class="service-card"> block and
+             update href, card-icon placeholder, and .card-label text
+           - Remove a card: delete the <a> block
+           - Welcome name: change "John Smith"
+           - Last login time: change the date/time string
+    ══════════════════════════════════════════════ -->
+    <main class="main">
+
+      <!-- ← Change this heading text to update the page title -->
+      <h1>Online Services Dashboard</h1>
+
+
+      <!-- ─────────────────────────────────────────
+           SERVICE CARDS GRID
+           3 columns × 2 rows = 6 cards
+           HOW TO EDIT:
+             - Change card label: edit text inside <span class="card-label">
+             - Change card link: update href="#" on each <a>
+             - Add a card: copy one <a class="service-card"> block
+             - Remove a card: delete the <a> block
+             - Change icon: replace <div class="card-icon"> with
+               <img src="icon.png" width="46" height="46">
+      ───────────────────────────────────────── -->
+      <div class="cards-grid">
+
+        <!-- Card 1 — change href and label text to edit -->
+        <a href="#" class="service-card">
+          <!-- REPLACE: swap card-icon for a real icon/image -->
+          <div class="card-icon"></div>
+          <span class="card-label">Manage Membership</span>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="#" class="service-card">
+          <div class="card-icon"></div>
+          <span class="card-label">Benefits</span>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="#" class="service-card">
+          <div class="card-icon"></div>
+          <span class="card-label">Make Contribution</span>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="#" class="service-card">
+          <div class="card-icon"></div>
+          <span class="card-label">Document Collection</span>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="#" class="service-card">
+          <div class="card-icon"></div>
+          <span class="card-label">Check Accreditation</span>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="#" class="service-card">
+          <div class="card-icon"></div>
+          <span class="card-label">Service Requests</span>
+        </a>
+
+      </div>
+      <!-- END CARDS GRID -->
+
+
+      <!-- ─────────────────────────────────────────
+           WELCOME / LAST LOGIN BAR
+           HOW TO EDIT:
+             - User name: change "John Smith"
+             - Date and time: change "May 10, 2026 at 2:30 PM"
+             - To populate dynamically, replace the <strong> content
+               with a JavaScript variable
+      ───────────────────────────────────────── -->
+      <div class="welcome-bar">
+        <!-- ← Change "John Smith" to the logged-in user's name -->
+        <span>Welcome, <strong>John Smith</strong></span>
+        <!-- ← Change this date/time to the actual last login value -->
+        <span>Last login: <strong>May 10, 2026 at 2:30 PM</strong></span>
+      </div>
+
+    </main>
+    <!-- END MAIN -->
+
+  </div>
+  <!-- END BODY LAYOUT -->
+
+
+  <!-- ============================================================
+       FOOTER  ←  SAGE GREEN
+       HOW TO EDIT:
+         - Add a link: copy an <a> + <span class="footer-sep"> block
+         - Remove a link: delete the <a> and its adjacent <span>
+         - Change link text or href: edit the <a> tag directly
+  ============================================================ -->
+  <footer>
+    <!-- ← Change href="#" to the real page URL for each link -->
+    <a href="#">Terms of Use</a>
+    <span class="footer-sep">&nbsp;|&nbsp;</span>
+    <a href="#">Privacy Policy</a>
+    <span class="footer-sep">&nbsp;|&nbsp;</span>
+    <a href="#">Help Center</a>
+  </footer>
+
+
+  <!-- ============================================================
+       FLOATING HELP BUTTON
+       HOW TO EDIT:
+         - Change "?" to any symbol or icon character
+         - Add an onclick to open a help modal or navigate to a page
+         - Change position via bottom/right values in the CSS above
+  ============================================================ -->
+  <button class="help-fab" title="Help" aria-label="Help">?</button>
+
+
+</body>
+</html>
