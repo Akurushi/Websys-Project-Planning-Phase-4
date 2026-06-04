@@ -343,15 +343,6 @@
     .sidebar-spacer { flex: 1; }
 
 
-    /* ============================================================
-       MAIN CONTENT AREA
-       Holds the page heading, service card grid, and welcome bar.
-
-       HOW TO EDIT:
-         - Background: change background-color on .main
-         - Inner padding: change the padding value on .main
-         - Gap between sections: change the gap value on .main
-    ============================================================ */
     .main {
       /* ← Change background-color to update the main panel color */
       background-color: var(--color-bg-light);
@@ -372,18 +363,6 @@
     }
 
 
-    /* ============================================================
-       SERVICE CARDS GRID
-       3-column grid of clickable service tiles.
-
-       HOW TO EDIT:
-         - Columns: change repeat(3, 1fr) e.g. repeat(2, 1fr) for 2 cols
-         - Gap between cards: change the gap value
-         - Card border radius: change border-radius on .service-card
-         - To add a card: copy a <a class="service-card"> block,
-           update href and the label text
-         - To remove a card: delete the <a> block
-    ============================================================ */
     .cards-grid {
       display: grid;
       /* ← Change repeat(3, 1fr) to change number of columns */
@@ -439,16 +418,7 @@
     }
 
 
-    /* ============================================================
-       WELCOME / LAST LOGIN BAR
-       The strip at the bottom of the main content area.
 
-       HOW TO EDIT:
-         - Welcome name: change "John Smith" in the HTML
-         - Last login text: update the date/time string in the HTML
-         - Background: change background-color on .welcome-bar
-         - Border: change border value on .welcome-bar
-    ============================================================ */
     .welcome-bar {
       /* ← Change background-color to update the welcome strip color */
       background-color: var(--color-text-light);
@@ -466,18 +436,6 @@
     /* Bold name and date inside the welcome bar */
     .welcome-bar strong { color: var(--color-text-dark); }
 
-
-    /* ============================================================
-       FOOTER  ←  SAGE GREEN
-       Bottom strip with Terms, Privacy, and Help links.
-
-       HOW TO EDIT:
-         - Background: change --color-sage in :root to update both
-           nav and footer at once
-         - Add a link: copy an <a> and <span class="footer-sep">
-           and change the href and text
-         - Remove a link: delete the <a> and its adjacent <span>
-    ============================================================ */
     footer {
       /* ← Sage green applied here — change --color-sage in :root */
       background-color: var(--color-sage);
@@ -513,16 +471,6 @@
     }
 
 
-    /* ============================================================
-       FLOATING HELP BUTTON
-       The "?" button fixed to the bottom-right corner.
-
-       HOW TO EDIT:
-         - Change bottom/right values to reposition it
-         - Change background-color to update its fill
-         - Change the label text ("?") to a different symbol or icon
-         - To hide it: add display:none
-    ============================================================ */
     .help-fab {
       position: fixed;
       /* ← Change bottom/right to reposition the button */
@@ -551,15 +499,6 @@
 </head>
 <body>
 
-  <!-- ============================================================
-       HEADER
-       HOW TO EDIT:
-         - Site name: change "Senior Citizens Hub" in .logo-text
-         - Logo circle: replace <div class="logo-circle"> with
-           <img src="logo.png" alt="Logo" width="40" height="40">
-         - CTA button text/link: edit "Click to call or chat" and href
-         - Search placeholder: change placeholder="Search services..."
-  ============================================================ -->
   <header>
 
     <!-- Logo: circle + site name -->
@@ -601,14 +540,6 @@
 
   </header>
 
-
-  <!-- ============================================================
-       NAV BAR
-       HOW TO EDIT:
-         - Add a tab: copy a <li><a> and change href + text
-         - Remove a tab: delete the <li> block
-         - Change active tab: move class="active" to the right <a>
-  ============================================================ -->
   <nav aria-label="Main navigation">
     <ul>
       <!-- ← Add class="active" to the tab matching the current page -->
@@ -624,16 +555,7 @@
   ============================================================ -->
   <div class="body-layout">
 
-    <!-- ══════════════════════════════════════════════
-         LEFT SIDEBAR
-         HOW TO EDIT:
-           - Add a link: copy a <a class="sidebar-item"> block
-             and update the href and label text
-           - Remove a link: delete the <a> block
-           - Change active item: move class="active" to the right <a>
-           - Icon placeholders: replace <div class="sidebar-icon">
-             with an SVG or <img> for real icons
-    ══════════════════════════════════════════════ -->
+
     <aside class="sidebar">
 
       
