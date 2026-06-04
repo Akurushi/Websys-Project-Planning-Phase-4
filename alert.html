@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Senior Citizens Hub – Scam Alert</title>
+  <style>
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f7f9f5;
+      color: #1a2e1a;
+    }
+
+    /* ══════════════════════════════════════════
+       NAV  →  Sage green (#87a878)
+    ══════════════════════════════════════════ */
+    nav {
+      background-color: #87a878;
+      border-bottom: 2px solid #6b8f5e;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-weight: bold;
+      font-size: 1.05rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 4px;
+    }
+
+    nav ul li a {
+      display: block;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 0.9rem;
+      padding: 8px 14px;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s;
+    }
+
+    nav ul li a:hover { color: #2d4a2d; }
+
+    /* Active nav link → Deep forest green underline */
+    nav ul li a.active {
+      font-weight: bold;
+      color: #2d4a2d;
+      border-bottom: 3px solid #2d4a2d;
+    }
+
+    /* ══════════════════════════════════════════
+       PAGE LAYOUT  —  sidebar + main
+    ══════════════════════════════════════════ */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      flex: 1;
+    }
+
+    /* ══════════════════════════════════════════
+       LEFT SIDEBAR
+    ══════════════════════════════════════════ */
+    .sidebar {
+      border-right: 1px solid #c5d4bc;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 0;
+      background-color: #eef2eb;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 18px;
+      text-decoration: none;
+      color: #1a2e1a;
+      font-size: 0.875rem;
+      border-left: 3px solid transparent;
+      transition: background-color 0.15s;
+    }
+
+    .sidebar-item:hover { background-color: #c8d9c0; }
+
+    /* Active sidebar item → forest green accent */
+    .sidebar-item.active {
+      font-weight: bold;
+      border-left-color: #2d4a2d;
+      background-color: #c8d9c0;
+      color: #2d4a2d;
+    }
+
+    /* Icon placeholder — replace with real SVG/img when ready */
+    .sidebar-icon {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #87a878;
+      border-radius: 3px;
+      background-color: #c8d9c0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-spacer { flex: 1; }
+
+    .sidebar-divider {
+      border: none;
+      border-top: 1px solid #c5d4bc;
+      margin: 8px 14px;
+    }
+
+    /* ══════════════════════════════════════════
+       MAIN CONTENT
+    ══════════════════════════════════════════ */
+    .main {
+      padding: 32px 36px;
+      background-color: #f7f9f5;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Page heading */
+    .page-heading h1 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      color: #2d4a2d;
+    }
+    .page-heading p { font-size: 0.875rem; color: #4a5e40; }
+
+    /* ── ALERT BANNER ── */
+    .alert-banner {
+      border: 1px solid #87a878;
+      border-left: 4px solid #2d4a2d;
+      border-radius: 8px;
+      background-color: #ffffff;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alert-banner-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #2d4a2d;
+    }
+
+    .alert-icon {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #2d4a2d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #2d4a2d;
+      flex-shrink: 0;
+    }
+
+    /* Text line placeholders */
+    .line-placeholder {
+      height: 10px;
+      background-color: #c8d9c0;
+      border-radius: 4px;
+    }
+    .line-placeholder.w100 { width: 100%; }
+    .line-placeholder.w80  { width: 80%;  }
+    .line-placeholder.w60  { width: 60%;  }
+    .line-placeholder.w40  { width: 40%;  }
+
+    .read-more {
+      font-size: 0.8rem;
+      color: #2d4a2d;
+      text-decoration: underline;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    /* ── EMAIL COMPARISON  (left / right split) ── */
+    .email-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .email-card {
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Real email card → Warm off-white (hero-left equivalent) */
+    .email-card.real {
+      background-color: #f7f9f5;
+      border: 1px solid #87a878;
+    }
+
+    /* Fake email card → Soft eucalyptus (hero-right equivalent) */
+    .email-card.fake {
+      background-color: #c8d9c0;
+      border: 1px solid #6b8f5e;
+    }
+
+    .email-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #1a2e1a;
+    }
+
+    /* Badge circle: checkmark (green) or X (forest) */
+    .badge-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #87a878;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .badge-x {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #2d4a2d;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    /* Trusted tag pill */
+    .trusted-tag {
+      font-size: 0.75rem;
+      border: 1px solid #87a878;
+      border-radius: 12px;
+      padding: 3px 12px;
+      width: fit-content;
+      background-color: #87a878;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    /* Warning bullet list */
+    .warning-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .warning-list li {
+      font-size: 0.8rem;
+      color: #2d4a2d;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .warning-list li::before {
+      content: "•";
+      flex-shrink: 0;
+      color: #2d4a2d;
+    }
+
+    /* ── SAFETY TIPS  (3 cards) ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .tip-card {
+      background-color: #ffffff;
+      border: 1px solid #c5d4bc;
+      border-radius: 8px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      transition: background-color 0.15s;
+    }
+
+    .tip-card:hover { background-color: #eef2eb; }
+
+    /* Circle icon placeholder → eucalyptus */
+    .tip-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background-color: #c8d9c0;
+      border: 1px solid #87a878;
+    }
+
+    .tip-label {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #2d4a2d;
+    }
+
+    .tip-desc {
+      font-size: 0.78rem;
+      color: #4a5e40;
+      line-height: 1.5;
+    }
+
+    /* ── REPORT CTA BANNER ── */
+    .report-banner {
+      border: 1px solid #87a878;
+      border-radius: 8px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      /* Deep forest green background for CTA contrast */
+      background-color: #2d4a2d;
+    }
+
+    .report-banner p {
+      font-size: 0.9rem;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    /* Report button → white outline on dark green */
+    .btn-report {
+      font-size: 0.875rem;
+      font-weight: bold;
+      padding: 10px 28px;
+      border: 2px solid #ffffff;
+      border-radius: 6px;
+      background-color: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      color: #ffffff;
+      transition: background-color 0.18s, color 0.18s;
+    }
+
+    .btn-report:hover {
+      background-color: #ffffff;
+      color: #2d4a2d;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER  →  Sage green (#87a878)
+    ══════════════════════════════════════════ */
+    footer {
+      background-color: #87a878;
+      border-top: 2px solid #6b8f5e;
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0 8px;
+      transition: color 0.15s;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #2d4a2d;
+    }
+
+    .footer-sep {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── FLOATING HELP BUTTON → Forest green ── */
+    .help-btn {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #2d4a2d;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: 2px solid #87a878;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.2s;
+    }
+
+    .help-btn:hover { background-color: #3d6b3d; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       NAV  —  Sage green
+  ══════════════════════════════════════════ -->
+  <nav>
+    <a href="Mainpage.html" class="logo">Senior Citizens Hub</a>
+    <ul>
+      <li><a href="Mainpage.html">Home</a></li>
+      <li><a href="Guide.html">Guide Mode</a></li>
+      <li><a href="Alert.html" class="active">Scam Alert</a></li>
+      <li><a href="#">About Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       PAGE LAYOUT  =  SIDEBAR  +  MAIN
+  ══════════════════════════════════════════ -->
+  <div class="page-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+      <a href="Mainpage.html" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Home
+      </a>
+
+      <a href="guide.html" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Guide Mode
+      </a>
+
+      <a href="alert.html" class="sidebar-item active">
+        <div class="sidebar-icon"></div>
+        Scam Alert
+      </a>
+
+      <a href="#" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Emergency Contacts
+      </a>
+
+      <div class="sidebar-spacer"></div>
+      <hr class="sidebar-divider" />
+
+      <a href="#" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Help &amp; Support
+      </a>
+
+      <a href="index.html" class="sidebar-item">
+        <div class="sidebar-icon"></div>
+        Logout
+      </a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- Page heading -->
+      <div class="page-heading">
+        <h1>Stay Safe Online</h1>
+        <p>Learn how to spot and avoid common scams.</p>
+      </div>
+
+      <!-- Alert Banner -->
+      <div class="alert-banner">
+        <div class="alert-banner-header">
+          <div class="alert-icon">!</div>
+          Urgent: New Text Scam Alert
+        </div>
+        <div class="line-placeholder w100"></div>
+        <div class="line-placeholder w80"></div>
+        <span class="read-more">Read More</span>
+      </div>
+
+      <!-- Real vs Fake Email — left / right split -->
+      <div class="email-comparison">
+
+        <!-- LEFT: Real Email → warm off-white -->
+        <div class="email-card real">
+          <div class="email-card-header">
+            <div class="badge-check">&#10003;</div>
+            Real Email
+          </div>
+          <div class="line-placeholder w100"></div>
+          <div class="line-placeholder w80"></div>
+          <div class="line-placeholder w60"></div>
+          <div class="line-placeholder w80"></div>
+          <div class="line-placeholder w40"></div>
+          <span class="trusted-tag">Trusted</span>
+        </div>
+
+        <!-- RIGHT: Fake / Scam Email → soft eucalyptus -->
+        <div class="email-card fake">
+          <div class="email-card-header">
+            <div class="badge-x">&#10005;</div>
+            Fake/Scam Email
+          </div>
+          <div class="line-placeholder w100"></div>
+          <div class="line-placeholder w80"></div>
+          <div class="line-placeholder w60"></div>
+          <ul class="warning-list">
+            <li>Suspicious link</li>
+            <li>Urgent request for personal info</li>
+            <li>Poor grammar or spelling</li>
+            <li>Unknown sender address</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Safety Tips — 3 icon cards -->
+      <div class="tips-grid">
+
+        <div class="tip-card">
+          <div class="tip-icon"></div>
+          <span class="tip-label">Strong Passwords</span>
+          <p class="tip-desc">Use a mix of letters, numbers, and symbols. Never reuse passwords.</p>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon"></div>
+          <span class="tip-label">Verify Identity</span>
+          <p class="tip-desc">Always confirm who is contacting you before sharing any information.</p>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon"></div>
+          <span class="tip-label">Secure Websites</span>
+          <p class="tip-desc">Look for "https://" and a padlock icon before entering any details.</p>
+        </div>
+
+      </div>
+
+      <!-- Report a Scam CTA -->
+      <div class="report-banner">
+        <p>Think you've been scammed?</p>
+        <a href="#" class="btn-report">Report a Scam Now</a>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- FOOTER — Sage green -->
+  <footer>
+    
+    <div class="footer-links">
+      <a href="#">Terms of Use</a> |
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Help Center</a>
+    </div>
+  </footer>
+
+  <!-- Floating help button -->
+  <button class="help-btn" title="Help">?</button>
+
+</body>
+</html>
